@@ -2,7 +2,7 @@
 //
 // original code/project by Aaron ALAI - aaronalai1@gmail.com
 // modified for use w/ LED bargraph by Collin Cunningham - collin@makezine.com
-// modified again by ComputerGeek for instructable & 7-segment display.
+// modified again by ComputerGeek for instructable & 7-segment display - http://www.instructables.com/id/Arduino-EMF-Detector/
 // modified again by K Seigler for ATtiny85/Shift Register usage - me@kyleseigler.net
 
 #define NUMREADINGS 8 // raise this number to increase data smoothing
