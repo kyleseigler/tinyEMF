@@ -34,20 +34,13 @@ void setup() {
   pinMode(probePin, INPUT);
   
   for (int i = 0; i < NUMREADINGS; i++)
-    readings[i] = 0;                      // initialize all the readings to 0
-  
-  /*
-  digitalWrite(latchPin, LOW);
-  shiftOut(dataPin, clockPin, MSBFIRST, 255);
-  digitalWrite(latchPin, HIGH);
-  delay(500);
-  */
-  
+    readings[i] = 0;                     // initialize all the readings to 0
+
   for (int n = 0; n < 15; n++)
     {
-        digitalWrite(latchPin, LOW);                            //Pull latch LOW to start sending data
-        shiftOut(dataPin, clockPin, MSBFIRST, seq[n]);          //Send the data
-        digitalWrite(latchPin, HIGH);                           //Pull latch HIGH to stop sending data
+        digitalWrite(latchPin, LOW);                     // Pull latch LOW to start sending data
+        shiftOut(dataPin, clockPin, MSBFIRST, seq[n]);   // Send the data
+        digitalWrite(latchPin, HIGH);                    // Pull latch HIGH to stop sending data
         delay(100);
     }
   
@@ -60,21 +53,21 @@ void loop() {
   
   val = analogRead(probePin);  // take a reading from the probe
   
-  if (val >= 0) {                // if the reading isn't zero, proceed
+  if (val >= 0) {              // if the reading isn't zero, proceed
 
-    val = constrain(val, 1, senseLimit);  // turn any reading higher than the senseLimit value into the senseLimit value
+    val = constrain(val, 1, senseLimit);     // turn any reading higher than the senseLimit value into the senseLimit value
     val = map(val, 1, senseLimit, 1, 1023);  // remap the constrained value within a 1 to 1023 range
     val = constrain(val, 1, 1023);
     
-    total -= readings[index];               // subtract the last reading
-    readings[index] = val;                  // read from the sensor
-    total += readings[index];               // add the reading to the total
-    index = (index + 1);                    // advance to the next index
+    total -= readings[index];            // subtract the last reading
+    readings[index] = val;               // read from the sensor
+    total += readings[index];            // add the reading to the total
+    index = (index + 1);                 // advance to the next index
 
-    if (index >= NUMREADINGS)               // if we're at the end of the array...
-      index = 0;                            // ...wrap around to the beginning
+    if (index >= NUMREADINGS)            // if we're at the end of the array...
+      index = 0;                         // ...wrap around to the beginning
 
-    average = total / NUMREADINGS;          // calculate the average
+    average = total / NUMREADINGS;       // calculate the average
 
     if (average < 8) {
       digitalWrite(latchPin, LOW);
